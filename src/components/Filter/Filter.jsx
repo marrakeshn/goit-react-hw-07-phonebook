@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './Filter.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/contactsSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
+  const filterValue = useSelector(state => state.contacts.filter);
 
   const handleChange = e => {
     dispatch(setFilter(e.currentTarget.value.trim()));
@@ -16,6 +17,7 @@ const Filter = () => {
         Filter
         <input
           type="name"
+          value={filterValue}
           onChange={handleChange}
           className={styles.filterInput}
         />

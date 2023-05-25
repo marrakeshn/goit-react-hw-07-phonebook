@@ -14,8 +14,8 @@ const ContactItem = ({ id, name, number }) => {
   return (
     <li className={styles.item}>
       <p className={styles.contact}>
-        {name}............
-        {number}
+        <span>{name}</span>
+        <span>{number}</span>
       </p>
       <button
         className={styles.btn}

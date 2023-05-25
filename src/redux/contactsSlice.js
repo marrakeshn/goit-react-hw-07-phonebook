@@ -5,7 +5,6 @@ export const CONTACTS = 'contacts'
 const initialState = {
   entities: [],
   filter: '',
-  error: '',
 }
 
 export const contactsSlice = createSlice({
