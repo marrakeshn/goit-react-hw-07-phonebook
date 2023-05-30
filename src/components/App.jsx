@@ -1,20 +1,16 @@
+import { ContactsForm } from './contactsForm/ContactsForm';
+import { ContactsList } from './contactsList/ContactsList';
+import { Filter } from './contactsFilter/ContactsFilter';
 import styles from './App.module.css';
-import ContactList from './ContactList/ContactList';
-import ContactForm from './ContactForm';
-import Filter from './Filter';
-import { useSelector } from 'react-redux';
 
-export default function App() {
-  const contacts = useSelector(state => state.contacts.entities);
-
+export const App = () => {
   return (
     <div className={styles.wrapper}>
       <h1>Phonebook</h1>
-      <ContactForm />
+      <ContactsForm />
       <h2 className={styles.titleContacts}>Contacts</h2>
-      <div className={styles.allContacts}>All contacts: {contacts.length}</div>
       <Filter />
-      <ContactList />
+      <ContactsList />
     </div>
   );
-}
+};

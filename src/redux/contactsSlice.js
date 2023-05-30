@@ -1,30 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit'
-
-export const CONTACTS = 'contacts'
-
-const initialState = {
-  entities: [],
-  filter: '',
-}
+import { createSlice } from '@reduxjs/toolkit';
+import { addNewContact, deleteContact, fetchContacts } from './operations';
 
 export const contactsSlice = createSlice({
-  name: CONTACTS,
-  initialState: initialState,
+  name: 'contacts',
+  initialState: { items: [], isLoading: false, error: null },
   reducers: {
-    addContact: (state, action) => {
-      state.entities.push(action.payload.contact)
-    },
-    deleteContact: (state, action) => {
-      const contactId = action.payload.id;
-      const contactToRemoveIndex = state.entities.findIndex((contact) => contact.id === contactId);
-      state.entities.splice(contactToRemoveIndex, 1);
-    },
-    setFilter(state, action) {
-        state.filter = action.payload.toLowerCase();
-      },
+    contacts: (state, action) => [...state, action.payload],
   },
-})
-
-export const { addContact, deleteContact, setFilter } = contactsSlice.actions
-
-export const contactsReducer = contactsSlice.reducer
+  extraReducers: builder => {
+    builder
+      .addCase(fetchContacts.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(fetchContacts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.error = null;
+        state.items = action.payload;
+      })
+      .addCase(fetchContacts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteContact.fulfilled, (state, action) => {
+        state.items = state.items.filter(
+          contact => contact.id !== action.payload.id
+        );
+        state.error = null;
+      })
+      .addCase(deleteContact.rejected, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(addNewContact.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+        state.error = null;
+      })
+      .addCase(addNewContact.rejected, (state, action) => {
+        state.error = action.payload;
+      });
+  },
+});
