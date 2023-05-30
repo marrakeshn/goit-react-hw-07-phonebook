@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { onChangeValue } from 'redux/filterSlice';
 import { selectFilter } from 'redux/selectors';
-import { Input, Label } from './Filter.styled';
+import styles from './ContactsFilter.module.css';
 
 export const Filter = () => {
   const dispatch = useDispatch();
@@ -10,8 +10,9 @@ export const Filter = () => {
 
   return (
     <>
-      <Label>Find contacts by name </Label>
-      <Input
+      <label className={styles.label}>Find contacts by name </label>
+      <input
+        className={styles.input}
         type="text"
         value={value}
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"

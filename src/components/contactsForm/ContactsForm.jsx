@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/selectors';
 import { addNewContact } from 'redux/operations';
-import { Label, Input, Button, Form } from './ContactsForm.styled';
+import styles from './ContactsForm.module.css';
 
 export const ContactsForm = () => {
   const [name, setName] = useState('');
@@ -43,10 +43,11 @@ export const ContactsForm = () => {
   };
 
   return (
-    <Form action="" onSubmit={handleSubmit}>
-      <Label htmlFor="" name="name">
+    <form className={styles.form} action="" onSubmit={handleSubmit}>
+      <label className={styles.label} htmlFor="" name="name">
         Name
-        <Input
+        <input
+          className={styles.input}
           type="text"
           name="name"
           value={name}
@@ -55,11 +56,12 @@ export const ContactsForm = () => {
           onChange={handleChange}
           required
         />
-      </Label>
+      </label>
 
-      <Label htmlFor="" name="number">
+      <label className={styles.label} htmlFor="" name="number">
         Number
-        <Input
+        <input
+          className={styles.input}
           type="tel"
           name="number"
           value={number}
@@ -68,12 +70,12 @@ export const ContactsForm = () => {
           onChange={handleChange}
           required
         />
-      </Label>
+      </label>
 
-      <Button type="submit" onSubmit={handleSubmit}>
+      <button className={styles.btn} type="submit" onSubmit={handleSubmit}>
         Add contact
-      </Button>
-    </Form>
+      </button>
+    </form>
   );
 };
 
